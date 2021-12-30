@@ -22,7 +22,11 @@ class playerValues(Base):
 
 
     def addPlayer(self, id ,name, pos, age, height, weight, drafted, draftClass, exp, data):
-        player = session.query(self).filter(self.id==id).one()
+        print(session)
+        try:
+            player = session.query(self).filter(self.id==id).one()
+        except:
+            player = None
        
         if player:
             player.name = name
@@ -36,13 +40,14 @@ class playerValues(Base):
             player.valueData = data
         else:
             player = self(id=id, name=name, pos=pos, age=age, height=height, weight=weight, drafted=drafted, draftClass=draftClass, exp=exp, valueData=data)
-            session.add(player)
+        
+        session.add(player)
             
     
     def commit():
         session.commit()
 
-#Base.metadata.create_all(engine)
-playerValues.addPlayer(playerValues, 1, 'testnew2', 'pos3', 22, '6"4', 220, '2.02', 2019, 'Rookie', r'2{324}')
-playerValues.addPlayer(playerValues, 5, 'Jacffob', 'pos', 22, '6"4', 220, '2.02', 2019, 'Rookie', r'{}')
-playerValues.commit()
+# #Base.metadata.create_all(engine)
+# playerValues.addPlayer(playerValues, 1, 'testnew2', 'pos3', 22, '6"4', 220, '2.02', 2019, 'Rookie', r'2{324}')
+# playerValues.addPlayer(playerValues, 5, 'Jacffob', 'pos', 22, '6"4', 220, '2.02', 2019, 'Rookie', r'{}')
+# playerValues.commit()
